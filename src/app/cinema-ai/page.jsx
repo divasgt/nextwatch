@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { IoMdSend } from 'react-icons/io';
 import Markdown from "react-markdown";
 import RecommendationCard from "@/components/RecommendationCard";
+import { useAuth } from "@/hooks/useAuth";
+import Loading from "../loading";
 
 export default function AskAIPage() {
   const [isLoading, setIsLoading] = useState(false)
@@ -23,11 +25,25 @@ export default function AskAIPage() {
       parts: [{ text: "Welcome to Cinema World! I'm CineBot, your personal movie and TV show assistant. Ask me anything about cinema or request some recommendations!" }],
     },
   ])
+  const {user, loading} = useAuth()
+  const [freeLimitReached, setFreeLimitReached] = useState(false)
 
   // scroll to the last message, when a new message is added
   useEffect(() => {
     // added block: "end" to scroll into view at the bottom of the window
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
+
+    if (!user && messages.length === 7) {
+      setFreeLimitReached(true)
+      setMessages(prev => [
+        ...prev,
+        {
+          role: "bot",
+          content: "Please sign in to ask more questions.",
+          type: "text",
+        }
+      ])
+    }
   }, [messages])
 
 
@@ -129,6 +145,7 @@ export default function AskAIPage() {
     )
   })
 
+  if (loading) return <Loading />
 
   return (
     <main className="flex flex-col h-[calc(100vh-70px)] px-4 lg:px-52">
@@ -154,12 +171,13 @@ export default function AskAIPage() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask anything cinema"
-          className="bg-gray-700/40 backdrop-blur-2xl border border-white/10 rounded-xl px-6 py-2.25 flex-1 outline-none focus:border-neutral-300/30 "
+          className="bg-gray-700/40 backdrop-blur-2xl border border-white/10 rounded-xl px-6 py-2.25 flex-1 outline-none focus:border-neutral-300/30 disabled:cursor-not-allowed"
+          disabled={freeLimitReached}
         />
         <button
           type="submit"
           className="text-sm text-white cursor-pointer px-3.5 py-1.25 bg-orange-700/80 backdrop-blur-2xl border border-white/10 hover:bg-orange-700 rounded-xl transition disabled:opacity-60 disabled:cursor-not-allowed"
-          disabled={isLoading || !input.trim()}
+          disabled={isLoading || !input.trim() || freeLimitReached}
           title="Send"
         >
           {isLoading ?

@@ -19,6 +19,8 @@ export function useWatchlist(userId) {
         .eq('user_id', userId)
         .order('created_at', {ascending: false}) // Sort by created_at descending
 
+      if (error) throw error
+        
       setWatchlist(data || [])
       setLoading(false)
     }

@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Cinema World",
+  title: "NextWatch",
   description: "One Stop website for cinema enthusiasts",
 };
 

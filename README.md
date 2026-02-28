@@ -1,9 +1,7 @@
-# Cinema World 🎬
+# NextWatch 🎬
 
-Cinema World is your one-stop website designed for cinema enthusiasts. Discover latest blockbusters to timeless classics, search for specific titles, manage your watchlists, and even chat with an AI cinebot for getting information and finding perfect recommendations!
-The application leverages various APIs, including TMDB for content data and Google Gemini for AI-powered features, and uses Supabase for user authentication and data storage. CineWorld is built with Next.js, React.js, and Tailwind CSS, and deployed on Vercel.
-
-### 🔗 Live Link: https://cineworld-app.vercel.app/
+NextWatch is your one-stop website designed for cinema enthusiasts. Discover latest blockbusters to timeless classics, search for specific titles, manage your watchlists, and even ask an AI chatbot for finding your next perfect watch!
+The application leverages various APIs, including TMDB for content data and Google Gemini for AI-powered features, and uses Supabase for user authentication and data storage. NextWatch is built with Next.js, React.js, and Tailwind CSS, and deployed on Vercel.
 
 
 ## 🚀 Key Features
@@ -14,7 +12,7 @@ The application leverages various APIs, including TMDB for content data and Goog
 - **Media Details Pages:** View detailed information about movies and TV shows, including cast, crew, synopsis, and ratings. ℹ️
 - **User Authentication:** Securely sign up, sign in, and manage your account. 🔑
 - **Personal Watchlist:** Save movies and TV shows to your personal watchlist for later viewing. 📝
-- **AI Cinebot:** Interact with an AI-powered chatbot for recommendations, trivia, and more. 🤖
+- **AI Chat:** Interact with an AI-powered chatbot for recommendations, trivia, and more. 🤖
 
 ## 🛠️ Tech Stack
 
@@ -91,7 +89,7 @@ The application leverages various APIs, including TMDB for content data and Goog
 - Use the search bar to find specific titles.
 - Click on a media item to view its details page.
 - Sign up or sign in to add items to your watchlist.
-- Interact with the AI cinebot for recommendations and information.
+- Interact with the AI chatbot for recommendations and information.
 
 ## 📂 Project Structure
 

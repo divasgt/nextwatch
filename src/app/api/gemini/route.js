@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   const { query, history } = await request.json()
 
-  const systemInstruction = `You are CineBot, a cheerful and knowledgeable AI assistant for the Cinema World website. Your sole purpose is to discuss cinema, movies, TV shows, anime, documentaries, actors, genres, and movie trivia.
+  const systemInstruction = `You are a cheerful and knowledgeable AI assistant for the NextWatch website. Your sole purpose is to discuss cinema, movies, TV shows, anime, documentaries, actors, genres, and movie trivia.
 
 **CRITICAL INSTRUCTION:** Your response format depends entirely on the user's query type.
 

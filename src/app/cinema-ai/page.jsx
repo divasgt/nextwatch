@@ -14,7 +14,7 @@ export default function AskAIPage() {
   const [messages, setMessages] = useState([
     {
       role: "bot",
-      content: "Welcome to Cinema World! I'm CineBot, your personal movie and TV show assistant. With the power of AI, I can answer anything cinema related or help you find your perfect watch!",
+      content: "Welcome to NextWatch! I'm your personal movie and TV show assistant. With the power of AI, I can answer anything cinema related or help you find your perfect watch!",
       type: "text",
     },
   ])
@@ -22,10 +22,10 @@ export default function AskAIPage() {
   const [history, setHistory] = useState([
     {
       role: "model",
-      parts: [{ text: "Welcome to Cinema World! I'm CineBot, your personal movie and TV show assistant. Ask me anything about cinema or request some recommendations!" }],
+      parts: [{ text: "Welcome to NextWatch! I'm your personal movie and TV show assistant. Ask me anything about cinema or request some recommendations!" }],
     },
   ])
-  const {user, loading} = useAuth()
+  const { user, loading } = useAuth()
   const [freeLimitReached, setFreeLimitReached] = useState(false)
 
   // scroll to the last message, when a new message is added

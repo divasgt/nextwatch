@@ -45,7 +45,7 @@ export default function Header() {
 
         <div className="header-left shrink-0">
           <nav className="nav-links flex gap-5 items-center shrink-0 mr-8">
-            <Link href="/" className="logo text-2xl tracking-tighter font-bold mr-2 bg-gradient-to-r from-red-500 to-orange-800 bg-clip-text text-transparent">Cinema World</Link>
+            <Link href="/" className="logo text-2xl tracking-tighter font-bold mr-2 bg-gradient-to-r from-red-500 to-orange-800 bg-clip-text text-transparent">NextWatch</Link>
 
             {/* Links for md screens */}
             <div className="hidden md:flex gap-5 items-center">

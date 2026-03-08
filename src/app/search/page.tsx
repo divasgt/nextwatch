@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from "react"
 export default function SearchPage() {
   const searchParams = useSearchParams()
   const query = searchParams.get('q') || ""
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const CACHE_KEY = "searchResults"

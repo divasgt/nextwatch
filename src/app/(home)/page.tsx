@@ -4,10 +4,10 @@ import { fetchFromTmdb } from "@/lib/tmdb";
 import H2ForSection from "@/components/H2ForSection";
 
 export default async function Home() {
-	let latestMoviesData = []
-	let latestTVShowsData = []
-	let topMoviesData = []
-	let topTVShowsData = []
+	let latestMoviesData: any[] = []
+	let latestTVShowsData: any[] = []
+	let topMoviesData: any[] = []
+	let topTVShowsData: any[] = []
 	
 	try {
 		const [latestMoviesResponse, latestTvResponse, topMoviesResponse, topTvResponse] = await Promise.all([
@@ -17,24 +17,13 @@ export default async function Home() {
 			fetchFromTmdb("/tv/top_rated", {language : "en-US", page : 1}),
 		]);
 
-		// Check responses
-		// for (const res of responses) {
-		// 	if (!res.ok) {
-		// 		throw new Error(`API failed with status ${res.status}`)
-		// 	}
-		// }
-
-		// const [latestMovies, latestTv, topMovies, topTv] = await Promise.all(
-		// 	responses.map(res => res.json())
-		// );
-
 		latestMoviesData = latestMoviesResponse.results
 		latestTVShowsData = latestTvResponse.results
 		topMoviesData = topMoviesResponse.results
 		topTVShowsData = topTvResponse.results
 	} catch (err) {
 		console.error("Error fetching cinema data: ", err)
-		throw err // the nearest error.jsx page will be shown
+		throw err  // the nearest error.jsx page will be shown
 	}
 
 	return (
@@ -52,8 +41,7 @@ export default async function Home() {
 			<MediaContainer>
 				{latestMoviesData.map((item) => (
 					<MediaCard key={item.id} item={item} isMovie={true} layoutType="grid" />
-				))
-				}
+				))}
 			</MediaContainer>
 		</section>
 
@@ -62,8 +50,7 @@ export default async function Home() {
 			<MediaContainer>
 				{latestTVShowsData.map((item) => (
 					<MediaCard key={item.id} item={item} isMovie={false} layoutType="grid" />
-				))
-				}
+				))}
 			</MediaContainer>
 		</section>
 
@@ -72,8 +59,7 @@ export default async function Home() {
 			<MediaContainer type="horizontal-container">
 				{topMoviesData.map((item) => (
 					<MediaCard key={item.id} item={item} isMovie={true} layoutType="horizontal" />
-				))
-				}
+				))}
 			</MediaContainer>
 		</section>
 
@@ -82,8 +68,7 @@ export default async function Home() {
 			<MediaContainer type="horizontal-container">
 				{topTVShowsData.map((item) => (
 					<MediaCard key={item.id} item={item} isMovie={false} layoutType="horizontal" />
-				))
-				}
+				))}
 			</MediaContainer>
 		</section>
 	</main>

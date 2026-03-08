@@ -7,11 +7,22 @@ import RecommendationCard from "@/components/RecommendationCard";
 import { useAuth } from "@/hooks/useAuth";
 import Loading from "../loading";
 
+type Message = {
+  role: string;
+  content: string | any[];
+  type: string;
+}
+
+type History = {
+  role: string;
+  parts: { text: string }[];
+}
+
 export default function AskAIPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [input, setInput] = useState("")
-  const messagesEndRef = useRef(null)
-  const [messages, setMessages] = useState([
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [messages, setMessages] = useState<Message[]>([
     {
       role: "bot",
       content: "Welcome to NextWatch! I'm your personal movie and TV show assistant. With the power of AI, I can answer anything cinema related or help you find your perfect watch!",
@@ -19,7 +30,7 @@ export default function AskAIPage() {
     },
   ])
   // separate state for passing as history to gemini api
-  const [history, setHistory] = useState([
+  const [history, setHistory] = useState<History[]>([
     {
       role: "model",
       parts: [{ text: "Welcome to NextWatch! I'm your personal movie and TV show assistant. Ask me anything about cinema or request some recommendations!" }],
@@ -44,10 +55,10 @@ export default function AskAIPage() {
         }
       ])
     }
-  }, [messages])
+  }, [messages, user])
 
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const query = input.trim()
     if (!query) return
@@ -80,7 +91,7 @@ export default function AskAIPage() {
       if (result.type === 'recommendation' && Array.isArray(result.data)) {
         // fetching TMDB data for each item
         const contentWithTmdbData = await Promise.all(
-          result.data.map(async (item) => {
+          result.data.map(async (item: any) => {
             const type = item.type?.toLowerCase().includes('movie') ? 'movie' : 'tv'
             const searchParams = new URLSearchParams({ title: item.title, year: item.release_year || '', type })
 
@@ -126,7 +137,7 @@ export default function AskAIPage() {
     if (message.type === 'recommendation' && Array.isArray(message.content)) {
       return (
         <div key={index} className="flex flex-col gap-3 self-start">
-          {message.content.map((item, itemIndex) => (
+          {message.content.map((item: any, itemIndex: number) => (
             // <RecommendationCard key={`${itemIndex}-${item.tmdbData?.id || item.title}`} item={item} />
             <RecommendationCard key={`${itemIndex}`} item={item} />
           ))}
@@ -140,7 +151,7 @@ export default function AskAIPage() {
         key={index}
         className={`py-2 px-3 backdrop-blur-xl max-w-xl rounded-xl whitespace-pre-wrap ${message.role === "bot" ? "bg-gray-600/50 self-start rounded-bl-none" : "bg-blue-800/80 self-end rounded-br-none"}`}
       >
-        <Markdown>{message.content}</Markdown>
+        <Markdown>{message.content as string}</Markdown>
       </div>
     )
   })
@@ -158,7 +169,7 @@ export default function AskAIPage() {
           {messageElements}
           {isLoading &&
             <div className="py-2 px-3 backdrop-blur-xl max-w-xl rounded-xl bg-gray-600/50 self-start rounded-bl-none animate-pulse">
-              <div>I'm thinking...</div>
+              <div>{"I'm thinking..."}</div>
             </div>
           }
         </div>

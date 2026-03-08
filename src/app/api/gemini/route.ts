@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 
-export async function POST(request) {
+export async function POST(request: Request) {
   const { query, history } = await request.json()
 
   const systemInstruction = `You are a cheerful and knowledgeable AI assistant for the NextWatch website. Your sole purpose is to discuss cinema, movies, TV shows, anime, documentaries, actors, genres, and movie trivia.
@@ -40,7 +40,7 @@ export async function POST(request) {
 
     const response = await chat.sendMessage({ message: query });
 
-    let text = response.text;
+    let text = response.text || "";
 
     // Attempt to extract JSON from a markdown code block
     const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/);

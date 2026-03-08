@@ -116,7 +116,7 @@ export default async function MediaDetailsPageComponent({ type, id }: { type: 'm
 
         {/* Genres: */}
         <div className="flex flex-wrap gap-2 items-center mb-2">
-          {detailsData.genres?.map(g => (
+          {detailsData.genres?.map((g: any) => (
             <span className="bg-gray-700/50 border border-gray-500/10 backdrop-blur-xl py-0.5 px-3 rounded-full text-sm" key={g.id}>{g.name}</span>
           ))}
         </div>

@@ -29,7 +29,7 @@ export default async function MoviePage() {
       <section className="mb-14">
         <H2ForSection title="Latest Movies" />
         <MediaContainer type="horizontal-container" id="latestMovies" >
-          {latestMoviesData.map(item => (
+          {latestMoviesData.map((item: any) => (
             <MediaCard key={item.id} item={item} isMovie={true} layoutType="horizontal" />
           ))}
         </MediaContainer>
@@ -38,7 +38,7 @@ export default async function MoviePage() {
       <section className="my-14">
         <H2ForSection title="Popular Movies" />
         <MediaContainer type="horizontal-container" id="popularMovies" >
-          {popularMoviesData.map(item => (
+          {popularMoviesData.map((item: any) => (
             <MediaCard key={item.id} item={item} isMovie={true} layoutType="horizontal" />
           ))}
         </MediaContainer>
@@ -47,7 +47,7 @@ export default async function MoviePage() {
       <section className="my-14">
         <H2ForSection title="Top Rated Movies" />
         <MediaContainer type="horizontal-container" id="topMovies" >
-          {topMoviesData.map(item => (
+          {topMoviesData.map((item: any) => (
             <MediaCard key={item.id} item={item} isMovie={true} layoutType="horizontal" />
           ))}
         </MediaContainer>
@@ -56,7 +56,7 @@ export default async function MoviePage() {
       <section className="my-14">
         <H2ForSection title="Upcoming Movies" />
         <MediaContainer type="horizontal-container" id="upcomingMovies" >
-          {upcomingMoviesData.map(item => (
+          {upcomingMoviesData.map((item: any) => (
             <MediaCard key={item.id} item={item} isMovie={true} layoutType="horizontal" />
           ))}
         </MediaContainer>

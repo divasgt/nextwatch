@@ -7,16 +7,16 @@ import { twMerge } from "tailwind-merge";
 
 interface HeaderSearchBoxProps {
   showCloseButton?: boolean;
-  onClose?: (() => void) | null;
+  onClose?: () => void;
   className?: string;
-  inputRef: React.RefObject<HTMLInputElement | null>;
+  inputRef?: React.RefObject<HTMLInputElement | null>;
 }
 
 export default function HeaderSearchBox({
   showCloseButton = false,
-  onClose = null,
+  onClose,
   className = "",
-  inputRef = null
+  inputRef
 }: HeaderSearchBoxProps) {
   const searchParams = useSearchParams()
   const [query, setQuery] = useState<string | null>(searchParams.get('q') || null)
@@ -34,7 +34,7 @@ export default function HeaderSearchBox({
   }, [query, router])
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    e.key === "Enter" ? router.push(`/search?q=${encodeURIComponent(query.trim())}`) : null
+    e.key === "Enter" ? router.push(`/search?q=${encodeURIComponent(query?.trim() || "")}`) : null
   }
 
   return (

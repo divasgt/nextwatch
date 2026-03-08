@@ -1,7 +1,7 @@
 import { BASE_URL, TMDB_API_KEY } from "@/lib/tmdb";
 import { NextResponse } from "next/server";
 
-export async function GET(request) {
+export async function GET(request: Request) {
   const url1 = new URL(request.url)
   const title = url1.searchParams.get('title')
   const year = url1.searchParams.get('year')
@@ -19,7 +19,7 @@ export async function GET(request) {
 
   // This is more robust way of attaching search parameters to url, instead of string concatenation
   const url = new URL(`${BASE_URL}/${endpoint}`)
-  url.searchParams.append('api_key', TMDB_API_KEY)
+  url.searchParams.append('api_key', TMDB_API_KEY as string)
   url.searchParams.append('query', title)
   url.searchParams.append('language', 'en-US')
   url.searchParams.append('page', '1')
@@ -33,15 +33,15 @@ export async function GET(request) {
     }
 
     const data = await response.json()
-    
+
     if (!data.results || data.results.length === 0) {
       return NextResponse.json(null)
     }
 
     // Find a result that closely matches the title and year
-    const matchedResult = data.results.find(result => {
+    const matchedResult = data.results.find((result: any) => {
       const resultTitle = (result.title || result.name || '').toLowerCase()
-      
+
       // return false early if title not match
       if (resultTitle !== title.toLowerCase()) {
         return false
@@ -67,4 +67,3 @@ export async function GET(request) {
     )
   }
 }
-

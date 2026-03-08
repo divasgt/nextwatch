@@ -4,7 +4,7 @@ import { MdPlayArrow } from 'react-icons/md';
 import AlertPopup from '../AlertPopup';
 import Modal from '../Modal';
 
-export default function TrailerBtn({ trailer }) {
+export default function TrailerBtn({ trailer }: { trailer: any }) {
   const [showTrailerModal, setShowTrailerModal] = useState(false)
   const [alertMessage, setAlertMessage] = useState<React.ReactNode | string>("")
 

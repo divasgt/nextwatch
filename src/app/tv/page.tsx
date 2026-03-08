@@ -26,7 +26,7 @@ export default async function MoviePage() {
       <section className="mb-14">
         <H2ForSection title="Latest TV Shows" />
         <MediaContainer type="horizontal-container" id="latestTv" >
-          {latestTvData.map(item => (
+          {latestTvData.map((item: any) => (
             <MediaCard key={item.id} item={item} isMovie={false} layoutType="horizontal" />
           ))}
         </MediaContainer>
@@ -35,7 +35,7 @@ export default async function MoviePage() {
       <section className="my-14">
         <H2ForSection title="Popular TV Shows" />
         <MediaContainer type="horizontal-container" id="popularTv" >
-          {popularTvData.map(item => (
+          {popularTvData.map((item: any) => (
             <MediaCard key={item.id} item={item} isMovie={false} layoutType="horizontal" />
           ))}
         </MediaContainer>
@@ -44,7 +44,7 @@ export default async function MoviePage() {
       <section className="my-14">
         <H2ForSection title="Top Rated TV Shows" />
         <MediaContainer type="horizontal-container" id="topTv" >
-          {topTvData.map(item => (
+          {topTvData.map((item: any) => (
             <MediaCard key={item.id} item={item} isMovie={false} layoutType="horizontal" />
           ))}
         </MediaContainer>

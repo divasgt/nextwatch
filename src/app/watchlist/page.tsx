@@ -29,7 +29,7 @@ export default function WatchlistPage() {
           <p className='text-white text-2xl'>No items in watchlist</p>
           :
           <MediaContainer>
-            {watchlist.map(item => (
+            {watchlist.map((item: any) => (
               <MediaCard
                 key={item.tmdb_id}
                 layoutType='grid'

@@ -49,7 +49,7 @@ export default function SignIn() {
   if (user) {
     return (<div className="w-full max-w-72 md:max-w-xl mx-auto px-6 py-10 text-sm md:text-base bg-gray-800/60 -translate-y-20 text-white rounded-lg shadow-lg my-auto text-center">
       <h2 className="text-wrap break-words md:text-2xl mb-4">Welcome, {user.email}!</h2>
-      <p className="text-gray-300 mb-4">You're signed in successfully.</p>
+      <p className="text-gray-300 mb-4">{"You're signed in successfully."}</p>
 
       <div className='space-x-4'>
         <Link

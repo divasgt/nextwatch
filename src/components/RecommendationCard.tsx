@@ -2,7 +2,7 @@ import { IMAGE_BASE_URL, PLACEHOLDER_IMAGE_URL } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function RecommendationCard({ item }: {item: any}) {
+export default function RecommendationCard({ item }: { item: any }) {
   const placeholderWidth = 100
   const placeholderHeight = 150
 
@@ -46,7 +46,7 @@ export default function RecommendationCard({ item }: {item: any}) {
             </span>
           </div>
           <p className="mt-2 text-sm text-gray-200">{item.reason}</p>
-          {!hasTmdbData && <span className="text-gray-400 text-xs mt-3 self-start hover:text-white duration-100 hover:underline underline-offset-2">Couldn't find it. Click to search for it ↗</span>}
+          {!hasTmdbData && <span className="text-gray-400 text-xs mt-3 self-start hover:text-white duration-100 hover:underline underline-offset-2">{"Couldn't find this. Click to search for this ↗"}</span>}
         </div>
       </div>
     )

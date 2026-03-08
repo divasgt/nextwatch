@@ -11,7 +11,7 @@
   "dependencies": {
     "@google/genai": "^1.22.0",
     "@supabase/supabase-js": "^2.75.0",
-    "next": "15.5.7",
+    "next": "^15.5.12",
     "react": "19.1.2",
     "react-dom": "19.1.2",
     "react-icons": "^5.5.0",
@@ -25,6 +25,8 @@
     "@types/react": "19.1.14",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
-    "tailwindcss": "^4"
+    "supabase": "^2.76.16",
+    "tailwindcss": "^4",
+    "typescript": "^5.9.3"
   }
 }

@@ -1,4 +1,4 @@
-import { MediaContainer } from "@/components/MediaContainer";
+import MediaContainer from "@/components/MediaContainer";
 import MediaCard from "@/components/MediaCard";
 import { fetchFromTmdb } from "@/lib/tmdb";
 import H2ForSection from "@/components/H2ForSection";

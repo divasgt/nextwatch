@@ -3,7 +3,17 @@ import { useEffect, useState } from "react"
 import { MdClose } from "react-icons/md"
 import { twMerge } from "tailwind-merge"
 
-export default function AlertPopup({message, duration=2500, className=""}) {
+interface AlertPopupProps {
+  message: React.ReactNode | string;
+  duration?: number;
+  className?: string;
+}
+
+export default function AlertPopup({
+  message,
+  duration = 2500,
+  className = ""
+}: AlertPopupProps) {
   const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
@@ -13,7 +23,7 @@ export default function AlertPopup({message, duration=2500, className=""}) {
       const timer = setTimeout(() => {
         setShowAlert(false)
       }, duration)
-      
+
       return () => clearTimeout(timer)
     }
   }, [message, duration])
@@ -25,11 +35,11 @@ export default function AlertPopup({message, duration=2500, className=""}) {
       )}
     >
       {message}
-      <button 
-        onClick={() => setShowAlert(false)} 
+      <button
+        onClick={() => setShowAlert(false)}
         className="ml-2 text-gray-400 cursor-pointer hover:text-white hover:bg-gray-600 rounded-md p-1 transition-colors"
       >
-        <MdClose className='size-4'/>
+        <MdClose className='size-4' />
       </button>
     </div>
   )

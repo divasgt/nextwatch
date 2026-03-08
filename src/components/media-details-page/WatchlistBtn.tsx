@@ -6,14 +6,22 @@ import { MdBookmarkAdded, MdBookmarkRemove, MdOutlineBookmarkAdd } from 'react-i
 import AlertPopup from '@/components/AlertPopup';
 import Link from 'next/link';
 
-export default function WatchlistBtn({tmdbId, title, type, year, posterPath}) {
-  tmdbId = Number(tmdbId)
-  const {user} = useAuth()
-  const {watchlist, addToWatchlist, removeFromWatchlist, loading} = useWatchlist(user?.id)
-  const isInWatchlist = watchlist.some(item => item.tmdb_id===tmdbId)
+interface WatchlistBtnProps {
+  tmdbId: string | number;
+  title: string;
+  type: string;
+  year: number;
+  posterPath: string;
+}
+
+export default function WatchlistBtn({ tmdbId, title, type, year, posterPath }: WatchlistBtnProps) {
+  const numericTmdbId = Number(tmdbId)
+  const { user } = useAuth()
+  const { watchlist, addToWatchlist, removeFromWatchlist, loading } = useWatchlist(user?.id)
+  const isInWatchlist = watchlist.some(item => item.tmdb_id === numericTmdbId)
   // const [isButtonHovered, setIsButtonHovered] = useState(false)
   // const [hoverTimeout, setHoverTimeout] = useState(null)
-  const [alertMessage, setAlertMessage] = useState('')
+  const [alertMessage, setAlertMessage] = useState<React.ReactNode | string>('')
 
   const handleClick = async () => {
     if (!user) {
@@ -26,10 +34,10 @@ export default function WatchlistBtn({tmdbId, title, type, year, posterPath}) {
       )
       return
     }
-    
+
     try {
       if (isInWatchlist) {
-        await removeFromWatchlist(tmdbId)
+        await removeFromWatchlist(numericTmdbId)
         setAlertMessage(
           <div>
             Removed from
@@ -37,7 +45,7 @@ export default function WatchlistBtn({tmdbId, title, type, year, posterPath}) {
           </div>
         )
       } else {
-        await addToWatchlist(tmdbId, title, type, year, posterPath)
+        await addToWatchlist(numericTmdbId, title, type, year, posterPath)
         // setAlertMessage(
         //   <>
         //     Added to 
@@ -45,7 +53,7 @@ export default function WatchlistBtn({tmdbId, title, type, year, posterPath}) {
         //   </>
         // )
       }
-    } catch(err) {
+    } catch (err) {
       setAlertMessage(isInWatchlist ? 'Failed to remove from watchlist' : 'Failed to add to watchlist')
     }
   }
@@ -63,32 +71,32 @@ export default function WatchlistBtn({tmdbId, title, type, year, posterPath}) {
   // }
 
   return (
-  <>
-    <button
-      id="watchlistBtn"
-      onClick={handleClick}
-      // onMouseEnter={handleMouseEnter}
-      // onMouseLeave={handleMouseLeave}
-      disabled={loading}
-      className="flex items-center justify-center px-4 py-3 text-sm rounded-md cursor-pointer bg-gray-600/70 shadow-sm backdrop-blur-xl text-white hover:bg-gray-600/85 transition-colors border border-gray-300/10"
-    >
-      {isInWatchlist ? 
-        // isButtonHovered ? 
-        // <>
-        //   <MdBookmarkRemove className="mr-2.5 size-5" />Remove from Watchlist
-        // </>
-        // :
-        <>
-          <MdBookmarkAdded className="mr-2.5 size-5" />Added to Watchlist
-        </>
-      :
-        <>
-          <MdOutlineBookmarkAdd className="mr-2.5 size-5" />Add to Watchlist
-        </>
-      }
-    </button>
+    <>
+      <button
+        id="watchlistBtn"
+        onClick={handleClick}
+        // onMouseEnter={handleMouseEnter}
+        // onMouseLeave={handleMouseLeave}
+        disabled={loading}
+        className="flex items-center justify-center px-4 py-3 text-sm rounded-md cursor-pointer bg-gray-600/70 shadow-sm backdrop-blur-xl text-white hover:bg-gray-600/85 transition-colors border border-gray-300/10"
+      >
+        {isInWatchlist ?
+          // isButtonHovered ? 
+          // <>
+          //   <MdBookmarkRemove className="mr-2.5 size-5" />Remove from Watchlist
+          // </>
+          // :
+          <>
+            <MdBookmarkAdded className="mr-2.5 size-5" />Added to Watchlist
+          </>
+          :
+          <>
+            <MdOutlineBookmarkAdd className="mr-2.5 size-5" />Add to Watchlist
+          </>
+        }
+      </button>
 
-    <AlertPopup message={alertMessage} />
-  </>
+      <AlertPopup message={alertMessage} />
+    </>
   )
 }

@@ -4,7 +4,22 @@ import Image from "next/image";
 import { IMAGE_BASE_URL } from "@/utils/constants";
 // import { MdErrorOutline } from 'react-icons/md';
 
-export default function WatchProviders({providers}) {
+interface Provider {
+  provider_id: number;
+  provider_name: string;
+  logo_path: string;
+}
+
+interface WatchProvidersProps {
+  providers: {
+    link?: string;
+    flatrate?: Provider[];
+    buy?: Provider[];
+    rent?: Provider[];
+  };
+}
+
+export default function WatchProviders({providers}: WatchProvidersProps) {
   const providersList = useMemo(() => {
     if (providers && (providers.flatrate || providers.buy || providers.rent)) {
       const allProviders = [
@@ -13,7 +28,7 @@ export default function WatchProviders({providers}) {
         ...(providers.rent || []),
       ]
 
-      const uniqueProviders = {}
+      const uniqueProviders: Record<number, Provider> = {}
       allProviders.forEach(provider => {
         if (!uniqueProviders[provider.provider_id]) {
           uniqueProviders[provider.provider_id] = provider

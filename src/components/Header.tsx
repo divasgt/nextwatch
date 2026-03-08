@@ -13,7 +13,7 @@ export default function Header() {
   const [isBrowseOpen, setIsBrowseOpen] = useState(false)
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false)
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false)
-  const mobileSearchInputRef = useRef(null)
+  const mobileSearchInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     function handleScroll() {
@@ -24,6 +24,7 @@ export default function Header() {
     // call function once, used for when page is loaded scrolled down.
     handleScroll()
     window.addEventListener("scroll", handleScroll)
+
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }

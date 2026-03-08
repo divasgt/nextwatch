@@ -1,0 +1,2 @@
+export const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/';
+export const PLACEHOLDER_IMAGE_URL = (width: number, height: number, bgColor: string = "374151", text: string = "No Image") => `https://placehold.co/${width}x${height}/${bgColor}/FFFFFF?text=${encodeURIComponent(text)}`;

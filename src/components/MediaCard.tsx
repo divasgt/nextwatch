@@ -6,34 +6,46 @@ import { useEffect, useRef, useState } from "react";
 import { MdStar, MdVolumeOff, MdVolumeUp } from "react-icons/md";
 import { twMerge } from "tailwind-merge";
 
+interface MediaCardProps {
+  item?: any;
+  isMovie?: boolean;
+  layoutType?: "grid" | "horizontal";
+  showInfo?: boolean;
+  tmdbId?: string | number | null;
+  mediaTitle?: string | null;
+  releaseYear?: string | number | null;
+  posterPath?: string | null;
+  showWatchlistBtn?: boolean;
+}
+
 // Modified to Handle when item object is passed, or (for watchlist items) when instead tmdbId, title, releaseYear, posterPath are passed.
 export default function MediaCard({
-  item=null,
+  item = null,
   isMovie,
-  layoutType="grid",
-  showInfo=false,
-  tmdbId=null,
-  mediaTitle=null,
-  releaseYear=null,
-  posterPath=null,
-  showWatchlistBtn=false
-}) {
+  layoutType = "grid",
+  showInfo = false,
+  tmdbId = null,
+  mediaTitle = null,
+  releaseYear = null,
+  posterPath = null,
+  showWatchlistBtn = false
+}: MediaCardProps) {
   const [isHovering, setIsHovering] = useState(false)
   const [isTrailerShown, setIsTrailerShown] = useState(false)
-  const [trailerKey, setTrailerKey] = useState(null)
-  const [hasFetched, setHasFetched] = useState(false) // Cache to prevent repeated fetch requests
+  const [trailerKey, setTrailerKey] = useState<string | null>(null)
+  const [hasFetched, setHasFetched] = useState(false)  // Cache to prevent repeated fetch requests
   const [alignment, setAlignment] = useState("center")
 
   const [isMuted, setIsMuted] = useState(true)
-  const iframeRef = useRef(null)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
 
-  const title = mediaTitle || (isMovie ? item.title : item.name)
-  const linkPath = `/${isMovie ? "movie" : "tv"}/${tmdbId || item.id}`
+  const title = mediaTitle || (isMovie ? item?.title : item?.name)
+  const linkPath = `/${isMovie ? "movie" : "tv"}/${tmdbId || item?.id}`
   const rating = item?.vote_average ? item.vote_average.toFixed(1) : null
 
-  let year
+  let year: string | number
   if (!releaseYear) {
-    const releaseDate = isMovie ? item.release_date : item.first_air_date
+    const releaseDate = isMovie ? item?.release_date : item?.first_air_date
     year = releaseDate ? new Date(releaseDate).getFullYear() : 'N/A'
   } else {
     year = releaseYear
@@ -41,13 +53,13 @@ export default function MediaCard({
 
   // Use placeholder size based on approximate card size
   const placeholderWidth = layoutType === 'horizontal' ? 130 : 140
-  const placeholderHeight = placeholderWidth * 1.5; // For 2:3 ratio
+  const placeholderHeight = placeholderWidth * 1.5 // For 2:3 ratio
   const posterSrc = posterPath || item?.poster_path
     ? `${IMAGE_BASE_URL}w342${posterPath || item.poster_path}`
-    : PLACEHOLDER_IMAGE_URL(placeholderWidth, placeholderHeight);
-  
+    : PLACEHOLDER_IMAGE_URL(placeholderWidth, placeholderHeight)
+
   useEffect(() => {
-    let timer
+    let timer: NodeJS.Timeout
     // To prevent state updates if unmounted/stopped hovering, make this false in cleanup function
     let isActive = true
 
@@ -62,13 +74,13 @@ export default function MediaCard({
         // If we haven't fetched yet, fetch it
         if (!hasFetched) {
           const type = isMovie ? "movie" : "tv"
-          const id = tmdbId || item.id
+          const id = tmdbId || item?.id
 
           try {
             const response = await fetch(`/api/${type}/${id}?append_to_response=videos`)
             if (!response.ok) throw new Error("Fetch failed!")
             const data = await response.json()
-            const trailer = data.videos.results.find(v => v.type==='Trailer' && v.site==='YouTube')
+            const trailer = data.videos?.results?.find((v: any) => v.type === 'Trailer' && v.site === 'YouTube')
 
             // Check isActive before setting state
             if (isActive) {
@@ -99,7 +111,7 @@ export default function MediaCard({
     }
   }, [isHovering, trailerKey, hasFetched, isMovie, tmdbId, item])
 
-  function handleMouseEnter(e) {
+  function handleMouseEnter(e: React.MouseEvent<HTMLAnchorElement>) {
     setIsHovering(true)
 
     // calculate anignment on mouse enter
@@ -133,20 +145,20 @@ export default function MediaCard({
       // For center, we only want the transform when expanded, 
       // but we need left-1/2 to anchor it to the middle.
       // To keep it simple in idle state, left-0 is fine, but for expansion:
-      return isTrailerShown 
-        ? "left-1/2 -translate-x-1/2 origin-center" 
+      return isTrailerShown
+        ? "left-1/2 -translate-x-1/2 origin-center"
         : "left-0 origin-center"
     }
   }
 
-  function toggleMute(e) {
+  function toggleMute(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     e.stopPropagation() // To prevent link navigation
 
-    if (iframeRef.current) {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
       // Send command to YouTube Iframe
       iframeRef.current.contentWindow.postMessage(
-        JSON.stringify({ event: "command", func: (isMuted ? "unMute" : "mute"), args: [] }), 
+        JSON.stringify({ event: "command", func: (isMuted ? "unMute" : "mute"), args: [] }),
         "*"
       )
       setIsMuted(!isMuted)
@@ -161,7 +173,7 @@ export default function MediaCard({
   //   window.addEventListener('scroll', handleScroll, true)
   //   return () => window.removeEventListener('scroll', handleScroll, true)
   // }, [isHovering])
-  
+
   return (
   // Outer container - maintains 2/3 size in grid
   <Link
@@ -180,7 +192,7 @@ export default function MediaCard({
           // w 266.66% because it changes from 16/9 to 2/3 which is 2.66
           ? `w-[266.66%] scale-80 sm:scale-100 -translate-y-6 sm:translate-y-0 md:h-full`
           : `w-full`
-        )
+      )
       }
     >
       {/* Content container for image and trailer iframe */}
@@ -220,7 +232,7 @@ export default function MediaCard({
         />
       </div>
 
-      {isHovering && 
+      {isHovering &&
         <div
           className={`px-3 py-2.5 top-full -mt-0.5 absolute left-0 right-0 transition-opacity duration-200 bg-gray-900 rounded-b-lg -z-1 shadow shadow-black/80`}
         >

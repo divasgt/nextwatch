@@ -1,8 +1,8 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export default function MediaCardSkeleton({ count = 6, layoutType }) {
-  const skeletons = Array.from({ length: count}, (_, index) => (
+export default function MediaCardSkeleton({ count = 6, layoutType }: { count?: number, layoutType?: 'horizontal' }) {
+  const skeletons = Array.from({ length: count }, (_, index) => (
     <div
       key={index}
       className={twMerge(

@@ -4,10 +4,10 @@ import { MdPlayArrow } from 'react-icons/md';
 import AlertPopup from '../AlertPopup';
 import Modal from '../Modal';
 
-export default function TrailerBtn({trailer}) {
+export default function TrailerBtn({ trailer }) {
   const [showTrailerModal, setShowTrailerModal] = useState(false)
-  const [alertMessage, setAlertMessage] = useState("")
-  
+  const [alertMessage, setAlertMessage] = useState<React.ReactNode | string>("")
+
   function trailerBtnClick() {
     if (trailer) {
       setShowTrailerModal(true)
@@ -15,11 +15,10 @@ export default function TrailerBtn({trailer}) {
       setAlertMessage(<div>Trailer not available</div>)
     }
   }
-  
-  return (
-  <>
+
+  return (<>
     <AlertPopup message={alertMessage} />
-    
+
     <button
       id="playTrailer"
       className="inline-flex items-center justify-center pl-3.5 pr-4 py-2.5 text-sm rounded-md cursor-pointer bg-gray-600/70 shadow-sm backdrop-blur-xl text-white hover:bg-gray-600/85 transition-colors border border-gray-300/10"
@@ -43,6 +42,5 @@ export default function TrailerBtn({trailer}) {
         </iframe>
       </div>
     </Modal>
-  </>
-  )
+  </>)
 }
